@@ -1,0 +1,40 @@
+---
+- name: Install Podman
+  become: true
+  ansible.builtin.apt:
+    name: podman
+    state: present
+
+- name: Create /etc/containers/systemd
+  become: true
+  ansible.builtin.file:
+    path: /etc/containers/systemd
+    state: directory
+
+- name: Copy single-container Quadlet template
+  become: true
+  notify: Reload systemd
+  ansible.builtin.copy:
+    src: podman-run@.container
+    dest: /etc/containers/systemd/podman-run@.container
+
+- name: Create Quadlet instance symlink
+  become: true
+  notify: Reload systemd
+  ansible.builtin.file:
+    state: link
+    src: /etc/containers/systemd/podman-run@.container
+    dest: "/etc/containers/systemd/podman-run@{{ container.name }}.container"
+
+- name: Create Quadlet drop-in folder
+  become: true
+  ansible.builtin.file:
+    state: directory
+    path: "/etc/containers/systemd/podman-run@{{ container.name }}.container.d"
+
+- name: Copy Quadlet drop-in
+  become: true
+  notify: Reload systemd
+  ansible.builtin.template:
+    src: podman-container-drop-in.conf.j2
+    dest: "/etc/containers/systemd/podman-run@{{ container.name}}.container.d/main.conf"

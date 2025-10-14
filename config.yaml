@@ -1,0 +1,3 @@
+containers:
+  - name: wallabag
+    image: docker.io/wallabag/wallabag:latest

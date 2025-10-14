@@ -1,0 +1,8 @@
+[Unit]
+Description=Podman single-container Quadlet template
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

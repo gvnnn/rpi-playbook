@@ -1,0 +1,14 @@
+---
+- name: Raspberry Pi provisioning
+  hosts: raspberrypi
+  gather_facts: false
+  vars_files:
+    - config.yaml
+  tasks:
+    - ansible.builtin.include_tasks: tasks/podman.yaml
+      loop: "{{ containers }}"
+      loop_control:
+        loop_var: container
+        label: "{{ container.name }}"
+  handlers:
+    - ansible.builtin.import_tasks: handlers/main.yaml
