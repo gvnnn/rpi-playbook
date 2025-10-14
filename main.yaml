@@ -2,6 +2,7 @@
 - name: Raspberry Pi provisioning
   hosts: raspberrypi
   gather_facts: false
+  become: true
   vars_files:
     - config.yaml
   tasks:

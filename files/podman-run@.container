@@ -1,6 +1,9 @@
 [Unit]
 Description=Podman single-container Quadlet template
 
+[Container]
+Image=x  # has to be defined, see https://github.com/containers/podman/blob/86eecc976a7e38a0759dcbd937912af46d0ee9ed/pkg/systemd/quadlet/quadlet.go#L600
+
 [Service]
 Restart=always
 

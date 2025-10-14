@@ -1,2 +1,17 @@
 [Container]
 Image={{ container.image }}
+{% if 'volumes' in container %}
+{% for volume in container.volumes %}
+Volume={{ volume.src }}:{{ volume.dest }}
+{% endfor %}
+{% endif %}
+{% if 'env' in container %}
+{% for var in container.env %}
+Environment={{ var.name }}={{ var.value }}
+{% endfor %}
+{% endif %}
+{% if 'ports' in container %}
+{% for port in container.ports %}
+PublishPort={{ port.local }}:{{ port.target }}
+{% endfor %}
+{% endif %}

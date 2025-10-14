@@ -1,3 +1,14 @@
 containers:
   - name: wallabag
     image: docker.io/wallabag/wallabag:latest
+    ports:
+      - local: 8080
+        target: 80
+    env:
+      - name: SYMFONY__ENV__DOMAIN_NAME
+        value: 'http://raspberrypi:8080'
+    volumes:
+      - src: /srv/wallabag/data
+        dest: /var/www/wallabag/data
+      - src: /srv/wallabag/images
+        dest: /var/www/wallabag/web/assets/images
