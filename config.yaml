@@ -6,7 +6,7 @@ containers:
         target: 80
     env:
       - name: SYMFONY__ENV__DOMAIN_NAME
-        value: 'http://raspberrypi:8080'
+        value: "http://{{ inventory_hostname }}:8080"
     volumes:
       - src: /srv/wallabag/data
         dest: /var/www/wallabag/data
