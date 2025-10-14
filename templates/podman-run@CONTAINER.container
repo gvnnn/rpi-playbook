@@ -1,3 +1,2 @@
 [Container]
-[Container]
 Image={{ container.image }}
